@@ -1,4 +1,5 @@
 module SessionsHelper
+
 	def us_states
     [
       ['AL'],
@@ -54,5 +55,5 @@ module SessionsHelper
       ['WI'],
       ['WY']
     ]
-end
+	end
 end
