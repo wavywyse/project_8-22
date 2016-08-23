@@ -1,3 +1,108 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<script>
+$(document).ready(function(){
+	$('#date-input-2').datepicker({
+		minDate: 0,
+		dateFormat: "yy-mm-dd"
+	});
+})
+</script>
+
+<a href='/users/edit'>Edit Profile</a>
+<a href='/logout'>Logout</a>
+<h1>Welcome <%=current_user.first_name%></h1>
+
+<div id='state-events-div'>
+	<h3>Here are some of the events in your state</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Location</th>
+				<th>Host</th>
+				<th>Action/Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% @state_events.each{ |event| %>
+			<tr>
+				<td><a href='/events/<%=event.id%>'><%=event.name%></a></td>
+				<td><%=event.date%></td>
+				<td><%=event.city%>, <%=event.state%></td>
+				<td><%=find_user(event.user_id).first_name%></td>
+				<td>
+				<% if event.user_id == session[:user_id] %>
+					<a href="/events/edit/<%=event.id%>">Edit</a>
+					<a href="/events/destroy/<%=event.id%>">Delete</a>
+				<% elsif event_join(event.id) %>
+					<span>Joining</span>
+					<a href="/events/unjoin/<%=event.id%>">Cancel</a>
+				<% else %>
+					<a href="/events/join/<%=event.id%>">Join</a>
+				<% end %>
+				</td>
+			</tr>
+		<% } %>
+		</tbody>
+	</table>
+</div>
+
+<div id='out-state-events-div'>
+	<h3>Here are some of the events in other states</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Location</th>
+				<th>Host</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% @out_state_events.each{ |event| %>
+			<tr>
+				<td><a href='/events/<%=event.id%>'><%=event.name%></a></td>
+				<td><%=event.date%></td>
+				<td><%=event.city%>, <%=event.state%></td>
+				<td><%=find_user(event.user_id).first_name%></td>
+				<td>
+				<% if event.user_id == session[:user_id] %>
+					<a href="/events/edit/<%=event.id%>">Edit</a>
+					<a href="/events/destroy/<%=event.id%>">Delete</a>
+				<% elsif event_join(event.id) %>
+					<span>Joining</span>
+					<a href="/events/unjoin/<%=event.id%>">Cancel</a>
+				<% else %>
+					<a href="/events/join/<%=event.id%>">Join</a>
+				<% end %>
+				</td>
+			</tr>
+		<% } %>
+		</tbody>
+	</table>
+</div>
+
+<div id='new-event-div'>
+<% if flash[:errors]
+	flash[:errors].each{ |error| %>
+		<p><%=error%></p>
+	<% } 
+end %>
+	<form action='/events/create' method='post'>
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<p>Name: <input type='text' name='event[name]'></p>
+		<p>Date: <input type='text' name='event[date]' id='date-input-2'></p>
+		<p>Location: <input type='text' name='event[city]'>
+		<select name='event[state]'>
+			<option value='CA'>CA</option>
+			<option value='IL'>IL</option>
+			<option value='NY'>NY</option>
+		</select>
+		</p>
+		<button>Add Event</button>
+	</form>
+</div>
+
+
 

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get '/events' => 'events#index'
 
+  post '/events/create' => 'events#create'
+
 
 
   

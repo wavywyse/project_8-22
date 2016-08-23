@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   def index
-    # @state_events = Event.where("state = '#{current_user.state}'")
-    # @out_state_events = Event.where.not("state = '#{current_user.state}'")
+    @state_events = Event.where("state = '#{current_user.state}'")
+    @out_state_events = Event.where.not("state = '#{current_user.state}'")
   end
 
   def show
