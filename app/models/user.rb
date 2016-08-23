@@ -6,5 +6,4 @@ class User < ActiveRecord::Base
 	validates :city, presence: true, length: { in: 2..50 }
 	validates :email, presence: true, uniqueness: { case_sensitive: true }, format: { with: EMAIL_REGEX }
 	validates :password, presence: true, length: { in: 7..20 }
-
 end

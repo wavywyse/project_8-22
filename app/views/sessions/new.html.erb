@@ -16,7 +16,7 @@
 	</p>
 	<p>
 		<label>City: </label>
-		<input type="text" name="user[city]"><%= select_tag :state, options_for_select(us_states) %>
+		<input type="text" name="user[city]"><%= select_tag "state", options_for_select(us_states), :name => "user[state]" %>
 	</p>
 	<p>
 		<label>Password: </label>

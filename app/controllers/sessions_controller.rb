@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  def index
+  def new
   	if !flash[:errors]
   		flash[:errors] = []
   	end
@@ -16,8 +16,8 @@ class SessionsController < ApplicationController
 	end
   end
 
-  def logout
+  def destroy
   	reset_session
-  	redirect_to :root
+  	redirect_to '/'
   end
 end

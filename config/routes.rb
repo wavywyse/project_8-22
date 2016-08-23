@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
-
-  root 'sessions#index'
+  root 'sessions#new'
 
   post '/login' => "sessions#login"
+  delete '/logout' => 'sessions#destroy'
 
+  
   post '/create' => "user#create"
 
   get '/events' => 'events#index'
+
+
+
   
 
   # The priority is based upon order of creation: first created -> highest priority.
