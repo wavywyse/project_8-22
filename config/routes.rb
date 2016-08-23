@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   root 'sessions#index'
 
   post '/login' => "sessions#login"
+
+  post '/create' => "user#create"
+
+  get '/events' => 'events#index'
   
 
   # The priority is based upon order of creation: first created -> highest priority.
