@@ -1,2 +1,47 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<a href='/events'>Home</a>
+<a href='/logout'>Logout</a>
+
+<h1><%=@event.name%></h1>
+<p>Host: <%=@host.first_name%> <%=@host.last_name%></p>
+<p>Date: <%=@event.date%></p>
+<p>Location: <%=@event.city%>, <%=@event.state%></p>
+
+<h4>Other users joining this event</h4>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Location</th>
+			<th>State</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @joins.each { |user| %>
+		<tr>
+			<td><%=user.first_name%> <%=user.last_name%></td>
+			<td><%=user.city%></td>
+			<td><%=user.state%></td>
+		</tr>
+	<% } %>
+	</tbody>
+</table>
+
+<div id='comment-container-div'>
+	<h4>Discussion about the event</h4>
+	<div id='comment-div'>
+	<% @comments.each{ |comment| %>
+		<p><%=comment.name%> says: <%=comment.content%></p>
+		<p>...........</p>
+	<% } %>
+	</div>
+<% if flash[:errors]
+	flash[:errors].each{ |error| %>
+		<p><%=error%></p>
+	<% } 
+end %>
+	<form action='/comments/create/<%=@event.id%>' method='post'>
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<textarea name='content'></textarea>
+		<button>Add Comment</button>
+	</form>
+</div>

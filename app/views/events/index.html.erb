@@ -8,7 +8,6 @@ $(document).ready(function(){
 </script>
 
 <a href='/users/edit'>Edit Profile</a>
-<a href='/logout'>Logout</a>
 <h1>Welcome <%=current_user.first_name%></h1>
 
 <div id='state-events-div'>
@@ -92,7 +91,7 @@ end %>
 	<form action='/events/create' method='post'>
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 		<p>Name: <input type='text' name='event[name]'></p>
-		<p>Date: <input type='text' name='event[date]' id='date-input-2'></p>
+		<p>Date: <input type='date' name='event[date]' id='date-input-2'></p>
 		<p>Location: <input type='text' name='event[city]'>
 		<select name='event[state]'>
 			<option value='CA'>CA</option>

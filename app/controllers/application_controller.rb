@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
     joined = EventUser.where("user_id = #{session[:user_id]}").where("event_id = #{id}").any?
     joined
   end
-  helper_method :current_user, :find_user
-  
+  helper_method :current_user, :find_user, :event_join
+
 end
