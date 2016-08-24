@@ -11,10 +11,19 @@ class UserController < ApplicationController
   		end
    end
 
-   def display
+  def display
+
+    @user = User.find(params[:id])
+
+    @hosting_events = Event.where("user_id = '#{@user.user_id}'")
+    @attending_events = Event.where("")
+    @hosted_events = Event.where("")
+    @attended_events = Event.where("")
+
   end
 
   def edit
+    @user = current_user
   end
 
    private

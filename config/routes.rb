@@ -1,18 +1,20 @@
 Rails.application.routes.draw do
-  get 'comments/create'
+
 
   root 'sessions#new'
 
   post '/login' => "sessions#login"
   delete '/logout' => 'sessions#destroy'
-
   
   post '/create' => "user#create"
+  get '/users/edit' => "user#edit"
+  get '/users/:id' => "user#display"
 
   get '/events' => 'events#index'
   get 'events/:id' => 'events#show'
   get '/events/show/:id' => 'events#show'
   post '/comments/create/:id' => 'comments#create'
+  get 'comments/create'
 
   post '/events/create' => 'events#create'
 

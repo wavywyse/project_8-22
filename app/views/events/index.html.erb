@@ -7,7 +7,7 @@ $(document).ready(function(){
 })
 </script>
 
-<a href='/users/edit'>Edit Profile</a>
+<a href='/users/edit'>Settings</a>
 <h1>Welcome <%=current_user.first_name%></h1>
 
 <div id='state-events-div'>
@@ -28,7 +28,7 @@ $(document).ready(function(){
 				<td><a href='/events/<%=event.id%>'><%=event.name%></a></td>
 				<td><%=event.date%></td>
 				<td><%=event.city%>, <%=event.state%></td>
-				<td><%=find_user(event.user_id).first_name%></td>
+				<td><a href='/users/<%=event.user_id%>'><%=find_user(event.user_id).first_name%></a></td>
 				<td>
 				<% if event.user_id == session[:user_id] %>
 					<a href="/events/edit/<%=event.id%>">Edit</a>
@@ -64,7 +64,7 @@ $(document).ready(function(){
 				<td><a href='/events/<%=event.id%>'><%=event.name%></a></td>
 				<td><%=event.date%></td>
 				<td><%=event.city%>, <%=event.state%></td>
-				<td><%=find_user(event.user_id).first_name%></td>
+				<td><a href='/users/<%=event.user_id%>'><%=find_user(event.user_id).first_name%></td>
 				<td>
 				<% if event.user_id == session[:user_id] %>
 					<a href="/events/edit/<%=event.id%>">Edit</a>
@@ -92,16 +92,10 @@ end %>
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 		<p>Name: <input type='text' name='event[name]'></p>
 		<p>Date: <input type='date' name='event[date]' id='date-input-2'></p>
+		<p>Time: <input type='time' name='event[time]'></p>
 		<p>Location: <input type='text' name='event[city]'>
-		<select name='event[state]'>
-			<option value='CA'>CA</option>
-			<option value='IL'>IL</option>
-			<option value='NY'>NY</option>
-		</select>
+		<%= select_tag "state", options_for_select(us_states), :name => "event[state]" %>
 		</p>
 		<button>Add Event</button>
 	</form>
 </div>
-
-
-
