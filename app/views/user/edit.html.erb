@@ -7,7 +7,8 @@
 		<p><%=error%></p>
 	<% } 
 end %>
-<form action='/users/update' method='post'>
+<form action='/users/<%= @user.id %>/update' method='post'>
+	<input name="_method" type="hidden" value="patch">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	<p>First Name: <input type='text' name='user[first_name]' value='<%=@user.first_name%>'></p>
 	<p>Last Name: <input type='text' name='user[last_name]' value='<%=@user.last_name%>'></p>
@@ -15,4 +16,4 @@ end %>
 	<p>Location: <input type='text' name='user[city]' value='<%=@user.city%>'>
 	<p><%= select_tag "state", options_for_select(us_states), :name => "user[state]" %>	</p>
 	<button>Update Profile</button>
-</form>
+</form>	

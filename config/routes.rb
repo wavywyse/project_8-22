@@ -9,15 +9,16 @@ Rails.application.routes.draw do
   post '/create' => "user#create"
   get '/users/edit' => "user#edit"
   get '/users/:id' => "user#display"
+  patch '/users/:id/update' => "user#update"
 
-  get '/events' => 'events#index'
-  get 'events/:id' => 'events#show'
-  get '/events/show/:id' => 'events#show'
+
   post '/comments/create/:id' => 'comments#create'
   get 'comments/create'
 
+  get '/events' => 'events#index'
+  get '/events/:id' => 'events#show'
+  get '/events/show/:id' => 'events#show'
   post '/events/create' => 'events#create'
-
   get 'events/edit/:id' => 'events#edit'
   post 'events/update/:id' => 'events#update'
   get 'events/destroy/:id' => 'events#destroy'
