@@ -1,2 +1,73 @@
-<h1>User#display</h1>
-<p>Find me in app/views/user/display.html.erb</p>
+<h1>Welcome <%=@user.first_name%></h1>
+<p><%=@user.email%></p>
+<p><%=@user.city</p>
+<div id="profile_pic">
+	<img src="">
+</div>
+<div id="links">
+	<a href='/events'>Home</a>
+	<a href='/users/edit'>Settings</a>
+	<a href='/logout'>Logout</a>
+</div>
+<h2>Events Hosting</h2>
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Date</td>
+			<td>Location</td>
+			<td>Action</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+<h2>Events Attending</h2>
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Date</td>
+			<td>Location</td>
+			<td>Host</td>
+			<td>Action</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+<h2>Past Hosted Events</h2>
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Date</td>
+			<td>Location</td>
+			<td>Host</td>
+			<td>Action</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+

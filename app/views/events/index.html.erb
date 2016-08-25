@@ -7,8 +7,9 @@ $(document).ready(function(){
 })
 </script>
 
-<a href='/users/edit'>Edit Profile</a>
+<a href='/users/edit'>Settings</a>
 <h1>Welcome <%=current_user.first_name%></h1>
+<%= image_tag current_user.avatar.url %>
 
 <div id='state-events-div'>
 	<h3>Here are some of the events in your state</h3>
@@ -93,11 +94,7 @@ end %>
 		<p>Name: <input type='text' name='event[name]'></p>
 		<p>Date: <input type='date' name='event[date]' id='date-input-2'></p>
 		<p>Location: <input type='text' name='event[city]'>
-		<select name='event[state]'>
-			<option value='CA'>CA</option>
-			<option value='IL'>IL</option>
-			<option value='NY'>NY</option>
-		</select>
+		<%= select_tag "state", options_for_select(us_states), :name => "event[state]" %>
 		</p>
 		<button>Add Event</button>
 	</form>

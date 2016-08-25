@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  def new
+    def new
   	if !flash[:errors]
   		flash[:errors] = []
   	end

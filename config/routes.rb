@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'comments/create'
-
+  # resources :users
   root 'sessions#new'
 
   post '/login' => "sessions#login"
@@ -8,11 +7,14 @@ Rails.application.routes.draw do
 
   
   post '/create' => "user#create"
-
+  get '/users/edit' => 'user#edit'
+  patch '/users/:id/update' => 'user#update'
+  
   get '/events' => 'events#index'
   get 'events/:id' => 'events#show'
   get '/events/show/:id' => 'events#show'
   post '/comments/create/:id' => 'comments#create'
+  get 'comments/create'
 
   post '/events/create' => 'events#create'
 

@@ -22,6 +22,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # Hirb
 gem 'hirb'
+# Paperclip file upload gem to upload profile pics.
+gem 'paperclip', '~> 4.2'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
