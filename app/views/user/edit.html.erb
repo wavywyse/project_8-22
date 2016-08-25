@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <h1>Edit Your Profile</h1>
 
 <% if flash[:errors] %>
@@ -31,24 +31,4 @@
       <a href="/users/<%= @user.id %>">Show</a>
 	  <%= link_to "Back", root_path %>
 </form>
-=======
-<a href='/events'>Events Dashboard</a>
-<a href='/logout'>Settings</a>
 
-<h2>Edit Your Profile</h2>
-<% if flash[:errors]
-	flash[:errors].each{ |error| %>
-		<p><%=error%></p>
-	<% } 
-end %>
-<form action='/users/<%= @user.id %>/update' method='post'>
-	<input name="_method" type="hidden" value="patch">
-	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	<p>First Name: <input type='text' name='user[first_name]' value='<%=@user.first_name%>'></p>
-	<p>Last Name: <input type='text' name='user[last_name]' value='<%=@user.last_name%>'></p>
-	<p>Email: <input type='text' name='user[email]' value='<%=@user.email%>'></p>
-	<p>Location: <input type='text' name='user[city]' value='<%=@user.city%>'>
-	<p><%= select_tag "state", options_for_select(us_states), :name => "user[state]" %>	</p>
-	<button>Update Profile</button>
-</form>	
->>>>>>> Marcus_824

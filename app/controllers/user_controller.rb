@@ -22,8 +22,6 @@ class UserController < ApplicationController
 
   def edit
     @user = current_user
-<<<<<<< HEAD
-=======
   end
 
   def update
@@ -46,7 +44,6 @@ class UserController < ApplicationController
     e = Event.find(params[:id])
     EventUser.where(user:current_user, event:e).destroy_all
     redirect_to "/events"
->>>>>>> Marcus_824
   end
 
   def update
