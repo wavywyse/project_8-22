@@ -11,11 +11,42 @@ class UserController < ApplicationController
   		end
    end
 
-   def display
+  def display
+
+    @user = User.find(params[:id])
+    current_date = Date.today
+
+    @hosting_events = Event.where("user_id = '#{@user.id}'")
+    @hosted_events = Event.where("date < '#{current_date}'") if Event.where("user_id = '#{@user.id}'")
   end
 
   def edit
     @user = current_user
+<<<<<<< HEAD
+=======
+  end
+
+  def update
+    user = current_user
+    user.update(user_params)
+    if user.errors.any?
+      flash[:errors] = user.errors.full_messages
+      redirect_to '/users/edit'
+    else
+      redirect_to '/events'
+    end
+  end
+
+
+  def join
+    join = EventUser.create(user:current_user, event:Event.find(params[:id]))
+    redirect_to "/events"
+  end
+  def unjoin
+    e = Event.find(params[:id])
+    EventUser.where(user:current_user, event:e).destroy_all
+    redirect_to "/events"
+>>>>>>> Marcus_824
   end
 
   def update
@@ -35,3 +66,5 @@ class UserController < ApplicationController
   	end
 
 end
+
+

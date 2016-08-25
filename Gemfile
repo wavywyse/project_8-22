@@ -32,6 +32,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
  # Debugging helper (from Michael Choi) 
  gem 'rails-footnotes', '>= 4.0.0', '<5'
 
+ 
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -34,8 +34,12 @@ ActiveRecord::Schema.define(version: 20160824214113) do
     t.string   "city"
     t.string   "state"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.time     "time"
+    t.text     "description"
+    t.decimal  "lat"
+    t.decimal  "lng"
   end
 
   create_table "users", force: :cascade do |t|

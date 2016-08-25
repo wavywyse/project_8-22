@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
-  # resources :users
+
+
   root 'sessions#new'
 
   post '/login' => "sessions#login"
   delete '/logout' => 'sessions#destroy'
-
   
   post '/create' => "user#create"
   get '/users/edit' => 'user#edit'
   patch '/users/:id/update' => 'user#update'
+  get '/users/:id' => "user#display"
   
+
   get '/events' => 'events#index'
   get 'events/:id' => 'events#show'
   get '/events/show/:id' => 'events#show'
