@@ -5,7 +5,22 @@ $(document).ready(function(){
 		dateFormat: "yy-mm-dd"
 	});
 })
+  function initMap() {
+    var mapDiv = document.getElementById('map');
+    var map = new google.maps.Map(mapDiv, {
+        center: {lat: 44.540, lng: -78.546},
+        zoom: 8
+    });
+  }
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnbJ-FqikBcgmOJsyQY5EEZIoZ9alztTI&callback=initMap"></script>
+
+<style>
+	#map {
+	    width: 85%;
+	    height: 400px;
+    }
+</style>
 
 <a href='/users/edit'>Settings</a>
 <h1>Welcome <%=current_user.first_name%></h1>
@@ -98,4 +113,10 @@ end %>
 		</p>
 		<button>Add Event</button>
 	</form>
+
+    <h3>My Google Maps Demo</h3>
+    <div id="map">
+
+    </div>
+
 </div>

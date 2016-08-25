@@ -18,9 +18,6 @@ class UserController < ApplicationController
 
     @hosting_events = Event.where("user_id = '#{@user.id}'")
     @hosted_events = Event.where("date < '#{current_date}'") if Event.where("user_id = '#{@user.id}'")
-    # @attending_events = Event.where("event_id = '#{@event.id}'").select("users.first_name as first_name, users.last_name as last_name, users.city as city, users.state as state")
-    # @attended_events = Event.where("date < '#{current_date}'") if Event.where
-
   end
 
   def edit
@@ -55,3 +52,5 @@ class UserController < ApplicationController
   	end
 
 end
+
+
