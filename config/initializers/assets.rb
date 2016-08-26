@@ -7,6 +7,7 @@ Rails.application.config.assets.precompile += %w( style.css )
 
 Rails.application.config.assets.precompile += %w( animate_login_n_reg.css )
 Rails.application.config.assets.precompile += %w( events.css )
+Rails.application.config.assets.precompile += %w( edit.css )
 Rails.application.config.assets.precompile += %w( event_display.css )
 Rails.application.config.assets.precompile += %w( login_n_reg.css )
 Rails.application.config.assets.precompile += %w( bootstrap.min.css )
