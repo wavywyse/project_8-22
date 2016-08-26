@@ -69,6 +69,7 @@ $(document).ready(function(){
 			<tr>
 				<th>Name</th>
 				<th>Date</th>
+				<th>Time</th>
 				<th>Location</th>
 				<th>Host</th>
 				<th>Action</th>
@@ -79,6 +80,7 @@ $(document).ready(function(){
 			<tr>
 				<td><a href='/events/<%=event.id%>'><%=event.name%></a></td>
 				<td><%=event.date%></td>
+				<td><%=event.time%></td>
 				<td><%=event.city%>, <%=event.state%></td>
 				<td><a href='/users/<%=event.user_id%>'><%=find_user(event.user_id).first_name%></td>
 				<td>

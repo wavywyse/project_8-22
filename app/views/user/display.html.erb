@@ -2,13 +2,14 @@
 <p><%=@user.email%></p>
 <p><%=@user.city%></p>
 <div id="profile_pic">
-	<img src="">
+	<%= image_tag current_user.avatar.url %>
 </div>
 <div id="links">
 	<a href='/events'>Home</a>
 	<a href='/users/edit'>Settings</a>
 	<a href='/logout'>Logout</a>
 </div>
+
 <h2>Events Hosting</h2>
 <table>
 	<thead>
@@ -20,12 +21,23 @@
 		</tr>
 	</thead>
 	<tbody>
+		<% @hosting_events.each{ |event| %>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td><%=event.name%></td>
+			<td><%=event.date%></td>
+			<td><%=event.city%></td>
+			<td><% if event.user_id == session[:user_id] %>
+					<a href="/events/edit/<%=event.id%>">Edit</a>
+					<a href="/events/destroy/<%=event.id%>">Delete</a>
+				<% elsif event_join(event.id) %>
+					<span>Joining</span>
+					<a href="/events/unjoin/<%=event.id%>">Cancel</a>
+				<% else %>
+					<a href="/events/join/<%=event.id%>">Join</a>
+				<% end %>
+			</td>
 		</tr>
+		<% } %>
 	</tbody>
 </table>
 <h2>Past Hosted Events</h2>
@@ -35,17 +47,15 @@
 			<td>Name</td>
 			<td>Date</td>
 			<td>Location</td>
-			<td>Host</td>
-			<td>Action</td>
 		</tr>
 	</thead>
 	<tbody>
+		<% @hosted_events.each{ |event| %>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td><%=event.name%></td>
+			<td><%=event.date%></td>
+			<td><%=event.city%></td>
 		</tr>
+		<% } %>
 	</tbody>
 </table>

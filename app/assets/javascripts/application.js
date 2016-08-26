@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+
 
 // Google Maps API key
 // AIzaSyBnbJ-FqikBcgmOJsyQY5EEZIoZ9alztTI
