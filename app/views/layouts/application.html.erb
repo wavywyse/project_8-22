@@ -9,13 +9,7 @@
 <body>
 <h1></h1>
 
-	<% if current_user %>
-		<form action="/logout" method="post" >
-		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		<input name="_method" value="delete" type="hidden">
-		<input type="submit" value="Logout">
-		</form>	
-	<% end %>
+
 <%= yield %>
 
 
