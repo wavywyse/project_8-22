@@ -36,7 +36,7 @@
 					</div>
 					<div class="meta">
 						<time class="published"><%=event.date%></time>
-						<a href="/users/<%=event.user_id%>" class="author"><span class="name"><%=find_user(event.user_id).first_name%></span><img src="images/avatar.jpg" alt="" /></a>
+						<a href="/users/<%=event.user_id%>" class="author"><span class="name"><%=find_user(event.user_id).first_name%></span></a>
 					</div>
 				</header>
 				<a href="#" class="image featured"><%= image_tag "pic01"%></a>
@@ -115,6 +115,7 @@
 						<p>Location: <input type='text' name='event[city]'>
 						<%= select_tag "state", options_for_select(us_states), :name => "event[state]" %>
 						</p>
+						<p>Description: <input type='text-area' name='event[description]'></p>
 						<h3>Google Maps visual aid</h3>
 					    <div id="map">
 						</div>

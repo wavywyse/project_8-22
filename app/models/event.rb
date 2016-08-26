@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
   has_many :user_joins, through: :event_users, source: :users
 
 
-  validates :name, :city, :date, :time, presence:true
+  validates :name, :city, :date, :time, :description, presence:true
   validates :state, presence:true, length:{is:2}
   validate  :date_valid
   

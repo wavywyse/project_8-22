@@ -1,61 +1,169 @@
-<h1>Welcome <%=@user.first_name%></h1>
-<p><%=@user.email%></p>
-<p><%=@user.city%></p>
-<div id="profile_pic">
-	<%= image_tag current_user.avatar.url %>
-</div>
-<div id="links">
-	<a href='/events'>Home</a>
-	<a href='/users/edit'>Settings</a>
-	<a href='/logout'>Logout</a>
-</div>
+  <head>
+    <meta charset="utf-8">
+    <title>User details</title>
 
-<h2>Events Hosting</h2>
-<table>
-	<thead>
-		<tr>
-			<td>Name</td>
-			<td>Date</td>
-			<td>Location</td>
-			<td>Action</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% @hosting_events.each{ |event| %>
-		<tr>
-			<td><%=event.name%></td>
-			<td><%=event.date%></td>
-			<td><%=event.city%></td>
-			<td><% if event.user_id == session[:user_id] %>
-					<a href="/events/edit/<%=event.id%>">Edit</a>
-					<a href="/events/destroy/<%=event.id%>">Delete</a>
-				<% elsif event_join(event.id) %>
-					<span>Joining</span>
-					<a href="/events/unjoin/<%=event.id%>">Cancel</a>
-				<% else %>
-					<a href="/events/join/<%=event.id%>">Join</a>
-				<% end %>
-			</td>
-		</tr>
-		<% } %>
-	</tbody>
-</table>
-<h2>Past Hosted Events</h2>
-<table>
-	<thead>
-		<tr>
-			<td>Name</td>
-			<td>Date</td>
-			<td>Location</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% @hosted_events.each{ |event| %>
-		<tr>
-			<td><%=event.name%></td>
-			<td><%=event.date%></td>
-			<td><%=event.city%></td>
-		</tr>
-		<% } %>
-	</tbody>
-</table>
+    <%= stylesheet_link_tag "magnific-popup", "normalize", "owl.carousel", "owl.theme", "responsive", "profile_page", "bootstrap.min" %>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <% if flash[:errors]
+  flash[:errors].each{ |error| %>
+    <p><%=error%></p>
+  <% } 
+end %>
+
+
+
+
+
+<header id="header">
+    <nav class="main">
+    </nav>
+  </header>
+
+
+
+
+
+
+
+
+    
+    <div class="header">
+      <div class="for-sticky">
+        <!--LOGO-->
+        <div class="col-md-2 col-xs-6 logo">
+          <!-- <a href="index.html"><img alt="logo" class="logo-nav" src="images/logo.png"></a> -->
+        </div>
+        <!--/.LOGO END-->
+      </div>
+      <div class="menu-wrap">
+        <nav class="menu">
+          <div class="menu-list">
+            <h1 id="menu-name"><%=@user.first_name%></h1>
+            <span><a href='/events'>Home</a></span>
+	        <span><a href='/users/edit'>Settings</a></span>
+	        <span>
+	        	<% if current_user %>
+				<form action="/logout" method="post" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input name="_method" value="delete" type="hidden">
+				<input type="submit" value="Logout">
+				</form> 
+        		<% end %>
+	        </span>
+          </div>
+        </nav>
+        <button class="close-button" id="close-button">Close Menu</button>
+      </div>
+	      <button class="menu-button" id="open-button">
+	      	<span></span>
+	      	<span></span>
+	      	<span></span>
+	      </button><!--/.for-sticky-->
+    </div>
+    <!--/.HEADER END-->
+    
+    <!--CONTENT WRAP-->
+    <div class="content-wrap">
+      <!--CONTENT-->
+      <div class="content">
+        <!--HOME-->
+        <section id="home">
+          <div class="container">
+            <div class="row">
+              <div class="wrap-hero-content">
+                  <div class="hero-content">
+                    <h1><%=@user.first_name%></h1>
+                    <br>
+                    <span class="typed"></span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--/.HOME END-->
+
+        <!--ABOUT-->
+        <section id="about">
+          <div class="col-md-6 col-xs-12 no-pad">
+            <div class="bg-about"><%= image_tag @user.avatar %></div>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12 white-col">
+            <div class="row">
+              <!--OWL CAROUSEL2-->
+              <div class="owl-carousel2">
+                <div class="col-md-12">
+                	<h1><%=@user.first_name%><%=@user.last_name%></h1>
+                	<h1><%=@user.city%>, <%=@user.state%></h1>
+                  <div class="wrap-about">
+                    <div class="w-content">       
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="col-md-12 col-sm-12 col-xs-12 white-col">
+                  <div class="row">
+                    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                      <div class="wrap-about"><br><br>
+						<h2>Events Hosting</h2>
+						<table>
+						<thead>
+							<tr>
+								<td>Name</td>
+								<td>Date</td>
+								<td>Location</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody>
+							<% @hosting_events.each{ |event| %>
+								<tr>
+									<td><%=event.name%></td>
+									<td><%=event.date%></td>
+									<td><%=event.city%></td>
+									<td><%=event.state%>
+									<td><% if event.user_id == session[:user_id] %>
+									<a href="/events/edit/<%=event.id%>">Edit</a>
+									<a href="/events/destroy/<%=event.id%>">Delete</a>
+									<% elsif event_join(event.id) %>
+									<span>Joining</span>
+									<a href="/events/unjoin/<%=event.id%>">Cancel</a>
+									<% else %>
+									<a href="/events/join/<%=event.id%>">Join</a>
+									<% end %>
+									</td>
+								</tr>
+							<% } %>
+						</tbody>
+						</table>
+						<h2>Past Hosted Events</h2>
+						<table>
+							<thead>
+								<tr>
+									<td>Name</td>
+									<td>Date</td>
+									<td>Location</td>
+								</tr>
+							</thead>
+							<tbody>
+								<% @hosted_events.each{ |event| %>
+								<tr>
+									<td><%=event.name%></td>
+									<td><%=event.date%></td>
+									<td><%=event.city%></td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/.OWL CAROUSEL2 END-->
+           
+    <%= javascript_include_tag "profile", "jquery-1.11.0.min", "jquery.appear", "bootstrap.min", "classie", "owl.carousel.min", "jquery.magnific-popup.min", "masonry.pkgd.min", "masonry.js", "smooth-scroll.min", "typed" %>    
+  </body>
