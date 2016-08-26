@@ -1,10 +1,27 @@
 <script src='/assets/date_picker.js'></script>
 
-<a href='/events'>Home</a>
-<a href='/users/edit'>Edit Profile</a>
-<a href='/logout'>Logout</a>
+<%= stylesheet_link_tag "event_index", "font-awesome.min"%>
 
-<div id='new-event-div'>
+
+<div id="wrapper">
+	<header id="header">
+		<h1><a href="/events">Meetup</a></h1>
+		<h1><%=current_user.first_name%></h1>
+			<ul>
+			<li><a href="/users/edit">User Settings</a></li>
+			<li>
+				<% if current_user %>
+				<form action="/logout" method="post" id="logout-button" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input name="_method" value="delete" type="hidden">
+				<input type="submit" value="Logout" id="logout-button">
+				</form>	
+				<% end %>
+			</li>
+			</ul>
+	</header>
+
+<div class='new-event-div'>
 <% if flash[:errors]
 	flash[:errors].each{ |error| %>
 		<p><%=error%></p>
@@ -18,6 +35,8 @@ end %>
 		<p>Time: <input type='time' name='event[time]' value="<%=@event.time%>" id='time'</p>
 		<p>Location: <input type='text' name='event[city]' value='<%=@event.city%>'>
 		<%= select_tag "state", options_for_select(us_states), :name => "event[state]" %>
+		<p>Description: <input type='text-area' name='event[description]'></p>
 		<button>Add Event</button>
 	</form>
+</div>
 </div>
