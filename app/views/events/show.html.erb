@@ -28,18 +28,35 @@
 end %>
 
     <!--HEADER -->
-    <a href='/events'>Home</a>
-    <a href='/logout'>Settings</a>
+
     
-    <div class="header">
-      <div class="for-sticky">
-        <!--LOGO-->
-        <div class="col-md-2 col-xs-6 logo">
-          <!-- <a href="index.html"><img alt="logo" class="logo-nav" src="images/logo.png"></a> -->
-        </div>
+<header id="header">
+    <h1><a href="#">MeetUp</a></h1>
+    <h1><%=current_user.first_name%></h1>
+    <% if current_user.avatar? %>
+      <%= image_tag current_user.avatar.url %>
+    <% end %>
+    <nav class="main">
+      <ul>
+      <li><a href="/users/edit">User Settings</a></li>
+      <li>
+        <% if current_user %>
+        <form action="/logout" method="post" >
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <input name="_method" value="delete" type="hidden">
+        <input type="submit" value="Logout">
+        </form> 
+        <% end %>
+      </li>
+        <li class="menu">
+          <a class="fa-bars" href="#menu">Menu</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
         <!--/.LOGO END-->
       </div>
-      <div class="menu-wrap">
+<!--       <div class="menu-wrap">
         <nav class="menu">
           <div class="menu-list">
             
@@ -51,7 +68,7 @@ end %>
         <span></span>
         <span></span>
         <span></span>
-      </button><!--/.for-sticky-->
+      </button><!--/.for-sticky--> -->
     </div>
     <!--/.HEADER END-->
     

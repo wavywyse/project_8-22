@@ -1,33 +1,25 @@
-<style>
+<head>
 
-</style>
+</head>
 
 <%= stylesheet_link_tag "event_index", "font-awesome.min"%>
 
 <div id="wrapper">
 	<header id="header">
-		<h1><a href="#">Future Imperfect</a></h1>
+		<h1><a href="/events">Meetup</a></h1>
 		<h1><%=current_user.first_name%></h1>
-		<% if current_user.avatar? %>
-			<%= image_tag current_user.avatar.url %>
-		<% end %>
-		<nav class="main">
 			<ul>
 			<li><a href="/users/edit">User Settings</a></li>
 			<li>
 				<% if current_user %>
-				<form action="/logout" method="post" >
+				<form action="/logout" method="post" id="logout-button" >
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<input name="_method" value="delete" type="hidden">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" id="logout-button">
 				</form>	
 				<% end %>
 			</li>
-				<li class="menu">
-					<a class="fa-bars" href="#menu">Menu</a>
-				</li>
 			</ul>
-		</nav>
 	</header>
 
 
@@ -110,12 +102,12 @@
 
 		<!-- Posts List -->
 			<section>
-				<div id='new-event-div'>
+				<div class='new-event-div'>
 					<% if flash[:errors]
 						flash[:errors].each{ |error| %>
 							<p><%=error%></p>
 					<% } end %>
-					<form action='/events/create' method='post'>
+					<form action='/events/create' method='post' id="add-event-form">
 						<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 						<p>Name: <input type='text' name='event[name]'></p>
 						<p>Date: <input type='date' name='event[date]' id='date-input-2'></p>
@@ -125,18 +117,16 @@
 						</p>
 						<h3>Google Maps visual aid</h3>
 					    <div id="map">
-				</div>
+						</div>
 							<button>Add Event</button>
 						</form>
-
+				</div>
 
 			</section>
 	</section>
 
 
 
-<%= javascript_include_tag "event_index", "jquery-1.11.0.min", "util", "skel.min", "bootstrap.min" %>
-<script src="assets/js/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 	$('#date-input-2').datepicker({
@@ -152,4 +142,8 @@ $(document).ready(function(){
     });
   }
 </script>
+
+<%= javascript_include_tag "bootstrap.min", "jquery-1.11.0.min", "event_index", "skel.min", "util" %> 
+
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnbJ-FqikBcgmOJsyQY5EEZIoZ9alztTI&callback=initMap"></script>
