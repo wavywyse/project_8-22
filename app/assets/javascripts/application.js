@@ -15,7 +15,5 @@
 //= require turbolinks
 
 
-
-
 // Google Maps API key
 // AIzaSyBnbJ-FqikBcgmOJsyQY5EEZIoZ9alztTI
