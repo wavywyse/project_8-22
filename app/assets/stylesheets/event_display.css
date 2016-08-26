@@ -1,5 +1,5 @@
 /*
-Template : Bodo - Simple One Page Personal
+Template Name: Bodo - Simple One Page Personal
 Author: BdgPixel
 Author URI:  http://themeforest.net/user/BdgPixel
 */
@@ -29,17 +29,6 @@ TABLE OF CONTENTS:
 
 ------------------------------------------------------------*/
 /*-----------------------------------------1) General--------------------------------------------------*/
-#comments {
-  border: 1px solid gray;
-  border-radius: 15px;
-}
-#commentbox1 {
-  margin-top: 50px;
-}
-#goodTimes {
-border-bottom: 70% solid gray;
-}
- 
 @font-face {
   font-family: 'Glyphter';
   src: url('../fonts/Glyphter.eot');
@@ -125,6 +114,11 @@ img { max-width: 100%; }
   text-align: center;
   margin-top: -80px;
 }
+
+#menu-name {
+	color: white;
+}
+
 
 /*----------------------------------------- 3) Helper --------------------------------------------------*/
 .no-pad {padding: 0 !important; margin: 0 !important;}
@@ -215,10 +209,8 @@ img { max-width: 100%; }
   z-index: 1;
   top: 0;
   left: 0;
-  border-bottom: 1px solid #f1f1f1;
   display: block;
   padding: 0px 15px 5px 15px;
-  background: #ffffff;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -ms-transition: all 0.3s;
@@ -516,7 +508,7 @@ p {
 
 /*----------------------------------------- 6) Hero --------------------------------------------------*/
 #home {
-  background: url('../images/bw-woman.jpg');
+  background: url('/assets/bw-woman.jpeg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -923,7 +915,6 @@ ul.portfolio-image li .desc{
   width: 100%;
 }
 .bg-about {
-  background: url('../images/summer-party.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -942,7 +933,7 @@ ul.portfolio-image li .desc{
   width: 100%;
   position: relative;
   display: block;
-  min-height: 280px;
+  min-height: 480px;
 }
 .wrap-about .w-content{
   position: absolute;
@@ -961,15 +952,12 @@ ul.portfolio-image li .desc{
 .wrap-about .w-content td.title{
   padding-right: 10px;
   font-weight: 500;
-
 }
 .wrap-about .w-content td.break{
   padding-right: 15px;
-
 }
 .wrap-about .w-content tr{
   height: 35px;
-
 }
 .wrap-about .head-about {
   font-size: 13px;

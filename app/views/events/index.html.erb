@@ -1,59 +1,25 @@
+<head>
 
-<script>
-$(document).ready(function(){
-	$('#date-input-2').datepicker({
-		minDate: 0,
-		dateFormat: "yy-mm-dd"
-	});
-})
-</script>
-  
-
-<style>
-	/*#map {*/
-	    /*width: 85%;*/
-	    /*height: 400px;*/
-    /*}*/
-    html, body {
-  height: 100%;
-  margin: 0;
-}
-#map{
-  height: 400px;
-  width: 400px;
-  margin: 0;
-}
-
-<style>
-
-</style>
+</head>
 
 <%= stylesheet_link_tag "event_index", "font-awesome.min"%>
 
 <div id="wrapper">
 	<header id="header">
-		<h1><a href="#">Future Imperfect</a></h1>
+		<h1><a href="/events">Meetup</a></h1>
 		<h1><%=current_user.first_name%></h1>
-		<% if current_user.avatar? %>
-			<%= image_tag current_user.avatar.url %>
-		<% end %>
-		<nav class="main">
 			<ul>
 			<li><a href="/users/edit">User Settings</a></li>
 			<li>
 				<% if current_user %>
-				<form action="/logout" method="post" >
+				<form action="/logout" method="post" id="logout-button" >
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<input name="_method" value="delete" type="hidden">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" id="logout-button">
 				</form>	
 				<% end %>
 			</li>
-				<li class="menu">
-					<a class="fa-bars" href="#menu">Menu</a>
-				</li>
 			</ul>
-		</nav>
 	</header>
 
 
@@ -70,14 +36,14 @@ $(document).ready(function(){
 					</div>
 					<div class="meta">
 						<time class="published"><%=event.date%></time>
-						<a href="#" class="author"><span class="name"><%=find_user(event.user_id).first_name%></span><img src="images/avatar.jpg" alt="" /></a>
+						<a href="/users/<%=event.user_id%>" class="author"><span class="name"><%=find_user(event.user_id).first_name%></span></a>
 					</div>
 				</header>
 				<a href="#" class="image featured"><%= image_tag "pic01"%></a>
 				<p><%=event.description%></p>
 				<footer>
 					<ul class="actions">
-						<li><a href="#" class="button big">View Event</a></li>
+						<li><a href="/events/<%=event.id%>" class="button big">View Event</a></li>
 					</ul>
 					<ul class="stats">
 						<% if event.user_id == session[:user_id] %>
@@ -115,7 +81,7 @@ $(document).ready(function(){
 						<header>
 							<h4><a href="/events/<%=event.id%>"><%=event.name%></a></a></h4>
 							<p><%=event.date%></p>
-							<a href="#"><%=find_user(event.user_id).first_name %>
+							<a href="/users/<%=event.user_id%>"><%=find_user(event.user_id).first_name %>
 						</header>
 						<a href="#" class="image"><%= image_tag "pic04"%></a>
 						<% if event.user_id == session[:user_id] %>
@@ -136,12 +102,12 @@ $(document).ready(function(){
 
 		<!-- Posts List -->
 			<section>
-				<div id='new-event-div'>
+				<div class='new-event-div'>
 					<% if flash[:errors]
 						flash[:errors].each{ |error| %>
 							<p><%=error%></p>
 					<% } end %>
-					<form action='/events/create' method='post'>
+					<form action='/events/create' method='post' id="add-event-form">
 						<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 						<p>Name: <input type='text' name='event[name]'></p>
 						<p>Date: <input type='date' name='event[date]' id='date-input-2'></p>
@@ -149,117 +115,19 @@ $(document).ready(function(){
 						<p>Location: <input type='text' name='event[city]'>
 						<%= select_tag "state", options_for_select(us_states), :name => "event[state]" %>
 						</p>
+						<p>Description: <input type='text-area' name='event[description]'></p>
 						<h3>Google Maps visual aid</h3>
 					    <div id="map">
-				</div>
+						</div>
 							<button>Add Event</button>
 						</form>
-
+				</div>
 
 			</section>
 	</section>
 
-<div id='out-state-events-div'>
-	<h3>Here are some of the events in other states</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Date</th>
-				<th>Time</th>
-				<th>Location</th>
-				<th>Host</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-		<% @out_state_events.each{ |event| %>
-			<tr>
-				<td><a href='/events/<%=event.id%>'><%=event.name%></a></td>
-				<td><%=event.date%></td>
-				<td><%=event.time%></td>
-				<td><%=event.city%>, <%=event.state%></td>
-				<td><a href='/users/<%=event.user_id%>'><%=find_user(event.user_id).first_name%></td>
-				<td>
-				<% if event.user_id == session[:user_id] %>
-					<a href="/events/edit/<%=event.id%>">Edit</a>
-					<a href="/events/destroy/<%=event.id%>">Delete</a>
-				<% elsif event_join(event.id) %>
-					<span>Joining</span>
-					<a href="/events/unjoin/<%=event.id%>">Cancel</a>
-				<% else %>
-					<a href="/events/join/<%=event.id%>">Join</a>
-				<% end %>
-				</td>
-			</tr>
-		<% } %>
-		</tbody>
-	</table>
-
-</div>
-
-<div id='new-event-div'>
-<% if flash[:errors]
-	flash[:errors].each{ |error| %>
-		<p><%=error%></p>
-	<% } 
-end %>
-	<form action='/events/create' method='post'>
-		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		<p>Name: <input type='text' name='event[name]'></p>
-		<p>Date: <input type='date' name='event[date]' id='date-input-2'></p>
-		<p>Time: <input type='time' name='event[time]'></p>
-		<p>Location: <input type='text' name='event[city]'>
-		<%= select_tag "state", options_for_select(us_states), :name => "event[state]" %>
-		</p>
-		<button>Add Event</button>
-	</form>
-</div>
-
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
-<input type="text" id="autocomplete">
-<div id="map"></div>
-
-<script>var mapOptions = {
-    center: new google.maps.LatLng(34.052235,-118.243683),
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-};
-
-var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-var acOptions = {
-  types: ['establishment']
-};
-var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),acOptions);
-autocomplete.bindTo('bounds',map);
-var infoWindow = new google.maps.InfoWindow();
-var marker = new google.maps.Marker({
-  map: map
-});
-
-google.maps.event.addListener(autocomplete, 'place_changed', function() {
-  infoWindow.close();
-  var place = autocomplete.getPlace();
-  if (place.geometry.viewport) {
-    map.fitBounds(place.geometry.viewport);
-  } else {
-    map.setCenter(place.geometry.location);
-    map.setZoom(17);
-  }
-  marker.setPosition(place.geometry.location);
-  infoWindow.setContent('<div><strong>' + place.name + '</strong><br>');
-  infoWindow.open(map, marker);
-  google.maps.event.addListener(marker,'click',function(e){
-
-    infoWindow.open(map, marker);
-
-  });
-});
-</script>
 
 
-<%= javascript_include_tag "event_index", "jquery-1.11.0.min", "util", "skel.min" %>
-<script src="assets/js/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 	$('#date-input-2').datepicker({
@@ -275,5 +143,8 @@ $(document).ready(function(){
     });
   }
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnbJ-FqikBcgmOJsyQY5EEZIoZ9alztTI&callback=initMap"></script>
 
+<%= javascript_include_tag "bootstrap.min", "jquery-1.11.0.min", "event_index", "skel.min", "util" %> 
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnbJ-FqikBcgmOJsyQY5EEZIoZ9alztTI&callback=initMap"></script>
