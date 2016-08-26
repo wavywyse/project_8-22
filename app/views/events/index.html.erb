@@ -44,14 +44,14 @@
 					</div>
 					<div class="meta">
 						<time class="published"><%=event.date%></time>
-						<a href="#" class="author"><span class="name"><%=find_user(event.user_id).first_name%></span><img src="images/avatar.jpg" alt="" /></a>
+						<a href="/users/<%=event.user_id%>" class="author"><span class="name"><%=find_user(event.user_id).first_name%></span><img src="images/avatar.jpg" alt="" /></a>
 					</div>
 				</header>
 				<a href="#" class="image featured"><%= image_tag "pic01"%></a>
 				<p><%=event.description%></p>
 				<footer>
 					<ul class="actions">
-						<li><a href="#" class="button big">View Event</a></li>
+						<li><a href="/events/<%=event.id%>" class="button big">View Event</a></li>
 					</ul>
 					<ul class="stats">
 						<% if event.user_id == session[:user_id] %>
@@ -89,7 +89,7 @@
 						<header>
 							<h4><a href="/events/<%=event.id%>"><%=event.name%></a></a></h4>
 							<p><%=event.date%></p>
-							<a href="#"><%=find_user(event.user_id).first_name %>
+							<a href="/users/<%=event.user_id%>"><%=find_user(event.user_id).first_name %>
 						</header>
 						<a href="#" class="image"><%= image_tag "pic04"%></a>
 						<% if event.user_id == session[:user_id] %>
@@ -133,64 +133,9 @@
 			</section>
 	</section>
 
-<div id='out-state-events-div'>
-	<h3>Here are some of the events in other states</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Date</th>
-				<th>Time</th>
-				<th>Location</th>
-				<th>Host</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-		<% @out_state_events.each{ |event| %>
-			<tr>
-				<td><a href='/events/<%=event.id%>'><%=event.name%></a></td>
-				<td><%=event.date%></td>
-				<td><%=event.time%></td>
-				<td><%=event.city%>, <%=event.state%></td>
-				<td><a href='/users/<%=event.user_id%>'><%=find_user(event.user_id).first_name%></td>
-				<td>
-				<% if event.user_id == session[:user_id] %>
-					<a href="/events/edit/<%=event.id%>">Edit</a>
-					<a href="/events/destroy/<%=event.id%>">Delete</a>
-				<% elsif event_join(event.id) %>
-					<span>Joining</span>
-					<a href="/events/unjoin/<%=event.id%>">Cancel</a>
-				<% else %>
-					<a href="/events/join/<%=event.id%>">Join</a>
-				<% end %>
-				</td>
-			</tr>
-		<% } %>
-		</tbody>
-	</table>
 
-</div>
 
-<div id='new-event-div'>
-<% if flash[:errors]
-	flash[:errors].each{ |error| %>
-		<p><%=error%></p>
-	<% } 
-end %>
-	<form action='/events/create' method='post'>
-		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		<p>Name: <input type='text' name='event[name]'></p>
-		<p>Date: <input type='date' name='event[date]' id='date-input-2'></p>
-		<p>Time: <input type='time' name='event[time]'></p>
-		<p>Location: <input type='text' name='event[city]'>
-		<%= select_tag "state", options_for_select(us_states), :name => "event[state]" %>
-		</p>
-		<button>Add Event</button>
-	</form>
-</div>
-
-<%= javascript_include_tag "event_index", "jquery-1.11.0.min", "util", "skel.min" %>
+<%= javascript_include_tag "event_index", "jquery-1.11.0.min", "util", "skel.min", "bootstrap.min" %>
 <script src="assets/js/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
